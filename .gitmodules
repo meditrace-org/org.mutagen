@@ -1,0 +1,9 @@
+[submodule "org.mutagen.backend"]
+	path = org.mutagen.backend
+	url = git@github.com:meditrace-org/org.mutagen.backend.git
+[submodule "org.mutagen.clickhouse"]
+	path = org.mutagen.clickhouse
+	url = git@github.com:meditrace-org/org.mutagen.clickhouse.git
+[submodule "org.mutagen.rabbitmq"]
+	path = org.mutagen.rabbitmq
+	url = git@github.com:meditrace-org/org.mutagen.rabbitmq.git
