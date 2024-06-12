@@ -1,14 +1,20 @@
 #!/bin/bash
 
+log() {
+    PURPLE='\033[0;35m'
+    NC="\033[0m"
+    echo -e "${PURPLE}[mutagen]${NC} ${1}"
+}
+
 start() {
-    echo "Starting services..."
-    export $(grep -v '^#' .env | xargs) } || true
+    log "Starting services..."
+    export $(grep -v '^#' .env | xargs) || true
     docker network create mutagen-backend || true
     git submodule foreach "docker compose up -d"
 }
 
 stop() {
-    echo "Stopping services..."
+    log "Stopping services..."
     git submodule foreach "docker compose down"
     docker network rm mutagen-backend
 }
@@ -16,7 +22,7 @@ stop() {
 update() {
     stop
 
-    echo "Updating submodules..."
+    log "Updating submodules..."
     git fetch && git pull
     git submodule update --recursive
 
@@ -34,7 +40,7 @@ case "$1" in
         update
         ;;
     *)
-        echo "Usage: $0 {stop|start|update}"
+        log "Usage: $0 {stop|start|update}"
         exit 1
         ;;
 esac
