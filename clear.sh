@@ -1,0 +1,1 @@
+sudo git submodule foreach "sudo rm -rf data"
