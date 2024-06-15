@@ -47,7 +47,7 @@ for index, row in df.iterrows():
         total_success_count = 0
         total_failure_count = 0
 
-        time.sleep(90)
+        time.sleep(45)
 
         start_time_batch = time.time()
 
