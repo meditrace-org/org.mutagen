@@ -23,6 +23,7 @@ def send_post_request(data):
 success_count = 0
 failure_count = 0
 batch_size = 10000
+start_time_batch = time.time()
 
 for index, row in df.iterrows():
     data = {
@@ -36,16 +37,21 @@ for index, row in df.iterrows():
     else:
         failure_count += 1
 
-    if (index + 1) % batch_size == 0 or (index + 1) == len(df):
-        print(f"\nProcessed {index + 1} records | Successfully sent: {success_count} | Failed to send: {failure_count}")
-
     if (index + 1) % batch_size == 0:
+        end_time_batch = time.time()
+        time_taken_batch = end_time_batch - start_time_batch
         print(f"\n{'=' * 40}")
-        print(f"Processed {index + 1} records, pausing for 60 seconds...")
-        print(f"{'=' * 40}\n")
-        time.sleep(60)
+        print(f"\nProcessed {index + 1} records | Successfully sent: {success_count} | Failed to send: {failure_count}")
+        print(f"Time taken for this batch: {time_taken_batch} seconds")
+
+        success_count = 0
+        failure_count = 0
+        time.sleep(90)
+
+    print("Ok, continue")
+    start_time_batch = time.time()
+
+print("\nProcessing completed and file saved as upload_result.csv")
+print(f"Total records processed: {len(df)} | Total successfully sent: {success_count} | Total failed to send: {failure_count}")
 
 df.to_csv('upload_result.csv', index=False)
-
-print("\nProcessing completed and file saved as output.csv")
-print(f"Total records processed: {len(df)} | Total successfully sent: {success_count} | Total failed to send: {failure_count}")
