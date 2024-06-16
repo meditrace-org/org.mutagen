@@ -19,6 +19,14 @@ services:
       service: rabbitmq
     env_file: ".env"
 
+  t2v_transform:
+    extends:
+      file: org.mutagen.vectorAPI/docker-compose.yml
+      service: server
+    env_file: ".env"
+    networks:
+      - mutagen-backend
+
   mutagen_backend:
     extends:
       file: org.mutagen.backend/docker-compose.yml
@@ -27,6 +35,7 @@ services:
       - rabbitmq
       - clickhouse
       - grafana
+      - t2v_transform
     env_file: ".env"
 
 networks:

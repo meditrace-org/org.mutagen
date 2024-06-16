@@ -7,3 +7,6 @@
 [submodule "org.mutagen.rabbitmq"]
 	path = org.mutagen.rabbitmq
 	url = git@github.com:meditrace-org/org.mutagen.rabbitmq.git
+[submodule "org.mutagen.vectorAPI"]
+	path = org.mutagen.vectorAPI
+	url = git@github.com:meditrace-org/org.mutagen.vectorAPI.git
