@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  clickhouse:
+    extends:
+      file: org.mutagen.clickhouse/docker-compose.yml
+      service: clickhouse
+    env_file: ".env"
+
+  grafana:
+    extends:
+      file: org.mutagen.clickhouse/docker-compose.yml
+      service: grafana
+    env_file: ".env"
+
+  rabbitmq:
+    extends:
+      file: org.mutagen.rabbitmq/docker-compose.yml
+      service: rabbitmq
+    env_file: ".env"
+
+  t2v_transform:
+    extends:
+      file: org.mutagen.vectorAPI/docker-compose.yml
+      service: server
+    env_file: ".env"
+    networks:
+      - mutagen-backend
+
+  mutagen_backend:
+    extends:
+      file: org.mutagen.backend/docker-compose.yml
+      service: mutagen_backend
+    depends_on:
+      - rabbitmq
+      - clickhouse
+      - grafana
+      - t2v_transform
+    env_file: ".env"
+
+networks:
+  mutagen-backend:
+    name: mutagen-backend
